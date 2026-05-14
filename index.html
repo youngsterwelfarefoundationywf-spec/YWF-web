@@ -1612,6 +1612,7 @@ function showNotifications() {
     </div>
   `);
 }
+}
 // Close modal on overlay click
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));
 document.getElementById('lPass').addEventListener('keypress',e=>{ if(e.key==='Enter') doLogin(); });

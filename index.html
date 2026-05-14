@@ -1570,21 +1570,16 @@ function toggleLang() {
 function showDevInfo() {
   mc(`
     <div style="text-align:center;padding:40px 20px">
-      
-      <!-- Your Photo -->
       <div style="width:180px;height:180px;margin:0 auto 25px;border-radius:50%;overflow:hidden;border:6px solid var(--pl);box-shadow:0 10px 40px rgba(26,122,69,0.5)">
         <img src="https://enifukjimtnvkwzmervg.supabase.co/storage/v1/object/public/ywf-photos/WhatsApp%20Image%202026-05-05%20at%204.53.15%20AM.jpeg" 
              style="width:100%;height:100%;object-fit:cover" 
              onerror="this.src='https://via.placeholder.com/180?text=Zahid+Hasan'">
       </div>
-
       <h2 style="margin:0 0 8px 0;font-size:26px">Zahid Hasan</h2>
-      
       <div style="margin:20px 0 30px;color:var(--tm);font-size:15px;line-height:1.6">
         <div><i class="fa fa-phone"></i> <strong>01885-273734</strong></div>
         <div style="margin-top:8px"><i class="fa fa-envelope"></i> <strong>zahidhasantarek34@gmail.com</strong></div>
       </div>
-
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a href="https://www.facebook.com/zahidhasan.34" target="_blank" class="btn bp">
           <i class="fa fa-facebook"></i> Facebook
@@ -1594,8 +1589,23 @@ function showDevInfo() {
         </a>
       </div>
     </div>
-}
   `);
+}
+  // ================== NOTIFICATIONS ==================
+function showNotifications() {
+  mc(`
+    <div class="card">
+      <div class="ch">
+        <div class="ct">নোটিফিকেশন</div>
+      </div>
+      <div style="padding:80px 20px;text-align:center;color:var(--tm)">
+        <i class="fa fa-bell" style="font-size:80px;opacity:0.2;margin-bottom:25px;display:block"></i>
+        <p style="font-size:18px;margin-bottom:10px">এখনো কোনো নোটিফিকেশন নেই</p>
+        <p style="font-size:14px">অ্যাডমিন নতুন কোনো আপডেট দিলে এখানে দেখাবে</p>
+      </div>
+    </div>
+  `);
+}
 
 // Close modal on overlay click
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));

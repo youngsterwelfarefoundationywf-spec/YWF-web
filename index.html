@@ -3060,42 +3060,65 @@ function toast(msg, type='i') {
   document.getElementById('toastBox').appendChild(el);
   setTimeout(()=>el.remove(),4500);
 }
-  // ================== DEVELOPER INFO ==================
-function showDevInfo() {
-  mc(`
-    <div style="text-align:center;padding:40px 20px">
-      <div style="width:180px;height:180px;margin:0 auto 25px;border-radius:50%;overflow:hidden;border:6px solid var(--pl);box-shadow:0 10px 40px rgba(26,122,69,0.5)">
-        <img src="https://enifukjimtnvkwzmervg.supabase.co/storage/v1/object/public/ywf-photos/WhatsApp%20Image%202026-05-05%20at%204.53.15%20AM.jpeg" 
-             style="width:100%;height:100%;object-fit:cover" 
-             onerror="this.src='https://via.placeholder.com/180?text=Zahid+Hasan'">
-      </div>
-      <h2 style="margin:0 0 8px 0;font-size:26px">Zahid Hasan</h2>
-      <div style="margin:20px 0 30px;color:var(--tm);font-size:15px;line-height:1.6">
-        <div><i class="fa fa-phone"></i> <strong>01885-273734</strong></div>
-        <div style="margin-top:8px"><i class="fa fa-envelope"></i> <strong>zahidhasantarek34@gmail.com</strong></div>
-      </div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="https://www.facebook.com/zahidhasan.34" target="_blank" class="btn bp">
-          <i class="fa fa-facebook"></i> Facebook
-        </a>
-        <a href="https://seeklogo.com/user/zahidhasan-34" target="_blank" class="btn bg">
-          <i class="fa fa-globe"></i> Website
-        </a>
-      </div>
-    </div>
-  `);
- 
-function toggleLang() {
-  LANG=LANG==='bn'?'en':'bn';
-  document.getElementById('langBtn').textContent=LANG==='bn'?'EN':'বা';
+// ================ NOTIFICATIONS & DEV INFO ================
+async function showNotifications() {
+    const { data } = await db.from('ywf_payment_requests').select('*,m:member_id(full_name)').eq('status', 'pending').order('created_at', { ascending: false }).limit(5);
+    
+    mc(`
+        <div class="card">
+            <div class="ch">
+                <div class="ct">নোটিফিকেশন</div>
+            </div>
+            ${(data || []).length === 0 ? `
+                <div style="padding:80px 20px;text-align:center;color:var(--tm)">
+                    <i class="fa fa-bell" style="font-size:80px;opacity:0.2;margin-bottom:25px;display:block"></i>
+                    <p style="font-size:18px;margin-bottom:10px">এখনো কোনো নোটিফিকেশন নেই</p>
+                    <p style="font-size:14px">অ্যাডমিন নতুন কোনো আপডেট দিলে এখানে দেখাবে</p>
+                </div>` : 
+                (data || []).map(r => `
+                <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+                    <div style="font-size:13px;font-weight:600">${r.m?.full_name || '—'} — পেমেন্ট রিকোয়েস্ট</div>
+                    <div style="font-size:11px;color:var(--tm);margin-top:3px">৳ ${r.amount} · ${new Date(r.created_at).toLocaleDateString()}</div>
+                </div>`).join('')}
+            <div style="margin-top:14px">
+                <button class="btn bp bsm" onclick="go('requests')">সব রিকোয়েস্ট দেখুন</button>
+            </div>
+        </div>
+    `);
 }
- 
-// Close modal on overlay click
-document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));
-document.getElementById('lPass').addEventListener('keypress',e=>{ if(e.key==='Enter') doLogin(); });
- 
+
+function showDevInfo() {
+    mc(`
+        <div style="text-align:center;padding:40px 20px">
+            <div style="width:160px;height:160px;margin:0 auto 20px;border-radius:50%;overflow:hidden;border:5px solid var(--pl);box-shadow:0 8px 30px rgba(26,122,69,0.4)">
+                <img src="https://enifukjimtnvkwzmervg.supabase.co/storage/v1/object/public/ywf-photos/WhatsApp%20Image%202026-05-05%20at%204.53.15%20AM.jpeg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://via.placeholder.com/160?text=ZH'">
+            </div>
+            <h2 style="font-size:26px;margin-bottom:6px">Zahid Hasan</h2>
+            <div style="color:var(--tm);font-size:14px;line-height:2;margin-bottom:24px">
+                <div><i class="fa fa-phone" style="color:var(--pl)"></i> <strong>01885-273734</strong></div>
+                <div><i class="fa fa-envelope" style="color:var(--pl)"></i> <strong>zahidhasantarek34@gmail.com</strong></div>
+            </div>
+            <div style="display:flex;gap:12px;justify-content:center">
+                <a href="https://www.facebook.com/zahidhasan.34" target="_blank" class="btn bp"><i class="fa fa-facebook"></i> Facebook</a>
+                <a href="https://seeklogo.com/user/zahidhasan-34" target="_blank" class="btn bg"><i class="fa fa-globe"></i> Website</a>
+            </div>
+        </div>
+    `);
+}
+
+// Modal closing logic
+document.querySelectorAll('.mo').forEach(o => {
+    o.addEventListener('click', e => {
+        if (e.target === o) o.classList.remove('show');
+    });
+});
+
+document.getElementById('lPass').addEventListener('keypress', e => {
+    if (e.key === 'Enter') doLogin();
+});
+
+// Start the app
 init();
 </script>
 </body>
 </html>
-

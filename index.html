@@ -550,11 +550,13 @@ async function loadSettings() {
   if (s.admin_contact) {
     document.getElementById('contactBar').style.display = 'flex';
     document.getElementById('contactNum').textContent = s.admin_contact;
-  }
-  if (s.logo_url) {
+   // Logo Fixed
+  const logoUrl = "https://enifukjimtnvkwzmervg.supabase.co/storage/v1/object/public/ywf-photos/e7e3698d-46b8-427f-a88c-5fc7c3e94293/logo.jpeg";
+  
+  if (logoUrl) {
     ['loginLogo','sidebarLogo'].forEach(id => {
       const el = document.getElementById(id);
-      if (el) el.src = s.logo_url;
+      if (el) el.src = logoUrl;
     });
   }
 }

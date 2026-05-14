@@ -1598,21 +1598,6 @@ function showDevInfo() {
 }
   `);
 
-// ================== NOTIFICATIONS ==================
-function showNotifications() {
-  mc(`
-    <div class="card">
-      <div class="ch">
-        <div class="ct">নোটিফিকেশন</div>
-      </div>
-      <div style="padding:80px 20px;text-align:center;color:var(--tm)">
-        <i class="fa fa-bell" style="font-size:80px;opacity:0.2;margin-bottom:25px;display:block"></i>
-        <p style="font-size:18px;margin-bottom:10px">এখনো কোনো নোটিফিকেশন নেই</p>
-        <p style="font-size:14px">অ্যাডমিন নতুন কোনো আপডেট দিলে এখানে দেখাবে</p>
-      </div>
-    </div>
-  `);
-}
 // Close modal on overlay click
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('show'); }));
 document.getElementById('lPass').addEventListener('keypress',e=>{ if(e.key==='Enter') doLogin(); });
